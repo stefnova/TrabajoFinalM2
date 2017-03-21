@@ -6,6 +6,7 @@
 //  Copyright © 2017 Rocío Córdova. All rights reserved.
 //
 
+/*
 import UIKit
 
 private let reuseIdentifier = "colect"
@@ -179,3 +180,4 @@ class ItemsCVController: UICollectionViewController, UISearchResultsUpdating {
     */
 
 }
+ */

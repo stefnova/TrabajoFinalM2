@@ -10,6 +10,13 @@ import UIKit
 
 class ItemCVC: UICollectionViewCell {
     
+   /* @IBOutlet weak var imgImagen: UIImageView!
+    
+    @IBOutlet weak var lblNombre: UILabel!
+    
+    @IBOutlet weak var lblCosto: UILabel!
+ */
+    
     @IBOutlet weak var imgImagen: UIImageView!
     
     @IBOutlet weak var lblNombre: UILabel!
