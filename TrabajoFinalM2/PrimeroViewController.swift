@@ -17,20 +17,37 @@ class PrimeroViewController: UIViewController {
     @IBOutlet weak var lblCosto: UILabel!
     
    
-    var param:Item! 
+    var param:Item!
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
         lblNombre.text = param.nombre
         lblDescripcion.text = param.descripcion
-        lblCosto.text = "S/. \(param.costo)"
+        lblCosto.text = "S/. \(param.costo!)"
         // Do any additional setup after loading the view.
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+    
+    
+    @IBAction func btnComprar(_ sender: UIButton) {
+        
+        if !carrito.contains(param) {
+            
+            let alerta = UIAlertController(title: "Alerta", message: "Se agrego al carrito",preferredStyle: UIAlertControllerStyle.alert)
+            let accionOK = UIAlertAction(title: "OK", style: UIAlertActionStyle .default, handler: nil)
+            
+            alerta.addAction(accionOK)
+            self.present(alerta, animated: true, completion: nil)
+            
+            carrito.append(param)
+        }
+        
+    
     }
     
 

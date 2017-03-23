@@ -34,6 +34,7 @@ class Table_ViewController: UIViewController, UITableViewDelegate, UITableViewDa
         let item = carrito[indexPath.row]
         
         cell.textLabel?.text = item.nombre
+        cell.tag = indexPath.row
         
         let swipeGR = UISwipeGestureRecognizer(target: self, action:#selector(swipe))
         swipeGR.direction = UISwipeGestureRecognizerDirection.left
@@ -49,12 +50,15 @@ class Table_ViewController: UIViewController, UITableViewDelegate, UITableViewDa
     }
     
     func swipe(sender: UISwipeGestureRecognizer){
-        print("swipe")
+       
         let cell =  sender.view
-        // let indexPath =
         
-        //carrito.remove(at: (indexPath?.row)!)
+        let indexPath = cell?.tag
+        
+        carrito.remove(at: indexPath!)
+        
         tV.reloadData()
+        
     }
 
     /*

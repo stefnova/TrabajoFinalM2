@@ -13,10 +13,10 @@ private let reuseIdentifier = "colect"
 public var carrito = Array<Item>()
 public var items = Array<Item>()
 
+
 class Collection_ViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UISearchResultsUpdating {
     
     var itemsFiltrados = Array<Item>()
-    
     
     @IBOutlet weak var buscador: UISearchBar!
     
@@ -127,10 +127,14 @@ class Collection_ViewController: UIViewController, UICollectionViewDelegate, UIC
         
     }
     
-    func prepare(for segue: UIStoryboardSegue, sender: Item!) {
-        let controlador:PrimeroViewController = segue.destination as! PrimeroViewController
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         
-        controlador.param = sender
+        if segue.identifier == "siguiente" {
+            let controlador:PrimeroViewController = segue.destination as! PrimeroViewController
+            controlador.param = sender as! Item
+    
+        }
+        
     }
     
     @IBAction func btnCarrito(_ sender: UIBarButtonItem) {
