@@ -18,11 +18,13 @@ class Collection_ViewController: UIViewController, UICollectionViewDelegate, UIC
     
     var itemsFiltrados = Array<Item>()
     
-    @IBOutlet weak var buscador: UISearchBar!
-    
-    let searchcontroller = UISearchController(searchResultsController: nil)
-    
     @IBOutlet weak var colection: UICollectionView!
+    
+    @IBOutlet weak var contenedor: UIView!
+    
+    var vwCabecera:UIView!
+    
+    let searchController = UISearchController(searchResultsController: nil)
     
     func updateSearchResults(for searchController: UISearchController) {
         
@@ -38,9 +40,12 @@ class Collection_ViewController: UIViewController, UICollectionViewDelegate, UIC
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        vwCabecera = UIView(frame: CGRect(x: 0, y: 0, width: self.view.frame.width , height: 60))
+        searchController.searchBar.placeholder = "Búsqueda"
+        searchController.searchResultsUpdater = self
+        vwCabecera = searchController.searchBar
         
-        searchcontroller.searchBar.prompt = "Titulo"
-        searchcontroller.searchResultsUpdater = self
+        contenedor.addSubview(vwCabecera)
         
 
         // Do any additional setup after loading the view.
@@ -76,16 +81,32 @@ class Collection_ViewController: UIViewController, UICollectionViewDelegate, UIC
     */
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        if searchController.isActive && searchController.searchBar.text != ""{
+            return itemsFiltrados.count
+        }
         return items.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath) as! ItemCVC
         
-        let item = items[indexPath.row]
+        let indice = indexPath.row
+        let item:Item
+        
+        
+        
+        if  searchController.isActive && searchController.searchBar.text != "" {
+            item = itemsFiltrados[indice]
+        }else{
+            item = items[indice]
+        }
+        
+
         cell.lblNombre.text = item.nombre
         cell.lblCosto.text = "$\(item.costo!)"
         cell.imgImagen.image = item.imagen
+        
+       
         
         let longPressGR = UILongPressGestureRecognizer(target: self, action: #selector(longPress))
         longPressGR.minimumPressDuration = 1
